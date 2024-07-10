@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:koko_sushishop/components/my_button.dart';
-import 'package:koko_sushishop/screens/home_screen.dart';
+import '../components/my_button.dart';
+import 'home_screen.dart';
 
 class IntroScreen extends StatelessWidget {
   static const routeName = '/intropage';
@@ -49,8 +50,11 @@ class IntroScreen extends StatelessWidget {
             const SizedBox(height: 20),
             MyButton(
               text: "Get started",
-              onTap: () => Navigator.of(context)
-                  .pushReplacementNamed(HomeScreen.routeName),
+              onTap: () => Navigator.of(context).pushReplacement(
+                CupertinoPageRoute(
+                  builder: (_) => const HomeScreen(),
+                ),
+              ),
             )
           ],
         ),

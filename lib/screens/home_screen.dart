@@ -1,28 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:koko_sushishop/components/food_tile.dart';
-import 'package:koko_sushishop/components/my_button.dart';
-import 'package:koko_sushishop/models/food.dart';
+import '../theme/colors.dart';
+import '../components/food_tile.dart';
+import '../components/my_button.dart';
+import '../models/food.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
 
   const HomeScreen({super.key});
-
-  static List<Food> foodMenu = [
-    Food(
-      name: 'Salmon Sushi',
-      price: '21.00',
-      imagePath: 'assets/salmon_sushi.png',
-      rating: "4.9",
-    ),
-    Food(
-      name: 'Tuna',
-      price: '20.00',
-      imagePath: 'assets/tuna.png',
-      rating: "4.2",
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +36,7 @@ class HomeScreen extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 20),
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 138, 60, 55),
+              color: primaryColor,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -110,7 +96,7 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.only(left: 20),
+              padding: const EdgeInsets.only(left: 20),
               scrollDirection: Axis.horizontal,
               itemCount: foodMenu.length,
               itemBuilder: (ctx, index) => FoodTile(
@@ -121,8 +107,9 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(height: 20),
           Container(
             decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(20)),
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(20),
+            ),
             margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
             padding: const EdgeInsets.all(20),
             child: Row(

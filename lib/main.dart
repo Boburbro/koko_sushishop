@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:koko_sushishop/screens/home_screen.dart';
-import 'package:koko_sushishop/screens/intro_screen.dart';
+
+import 'screens/home_screen.dart';
+import 'screens/intro_screen.dart';
 
 void main() {
   runApp(const MyApp());
