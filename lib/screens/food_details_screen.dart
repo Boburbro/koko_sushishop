@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/shop.dart';
+import 'cart_screen.dart';
+import 'package:provider/provider.dart';
 import '../components/my_button.dart';
 import '../theme/colors.dart';
 
@@ -33,11 +37,61 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
     setState(() {
       quantity--;
     });
-
   }
 
-  void addToCard(){
-    
+  void addToCart(
+    BuildContext ctx,
+    String id,
+    Food food,
+    int quantity,
+  ) {
+    context.read<Shop>().addToCart(
+          id,
+          food,
+          quantity,
+        );
+    showDialog(
+      context: ctx,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: primaryColor,
+        content: const Text(
+          "Successfully added to cart",
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+        actions: [
+          TextButton.icon(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.of(ctx).pushReplacement(
+                CupertinoPageRoute(
+                  builder: (_) => const CartScreen(),
+                ),
+              );
+            },
+            label: const Text(
+              'Go to cart',
+              style: TextStyle(color: Colors.white),
+            ),
+            icon: const Icon(
+              Icons.shopping_cart_checkout_rounded,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.of(ctx).pop();
+            },
+            icon: const Icon(
+              Icons.done_rounded,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -45,6 +99,11 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.grey[900],
+        leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+            )),
       ),
       body: Column(
         children: [
@@ -107,7 +166,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "\$${widget.food.price}  x  $quantity = \$${widget.food.price * quantity}",
+                      "\$${widget.food.price}  x  $quantity = \$${(widget.food.price * quantity).toStringAsFixed(2)}",
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -157,7 +216,16 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                MyButton(text: "Add to card", onTap: () {})
+                MyButton(
+                    text: "Add to card",
+                    onTap: () {
+                      addToCart(
+                        context,
+                        UniqueKey().toString(),
+                        widget.food,
+                        quantity,
+                      );
+                    }),
               ],
             ),
           )

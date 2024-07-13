@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/shop.dart';
+import 'cart_screen.dart';
+import 'package:provider/provider.dart';
 import '../theme/colors.dart';
 import '../components/food_tile.dart';
 import '../components/my_button.dart';
-import '../models/food.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
@@ -12,22 +15,30 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final foodMenu = context.read<Shop>().foodMenu;
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
+        foregroundColor: Colors.grey[900],
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Icon(
+        leading: const Icon(
           Icons.menu,
-          color: Colors.grey[900],
         ),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "Tokyo",
-          style: TextStyle(
-            color: Colors.grey[900],
-          ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.of(context).push(
+              CupertinoPageRoute(
+                builder: (_) => const CartScreen(),
+              ),
+            ),
+            icon: const Icon(Icons.shopping_cart_rounded),
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

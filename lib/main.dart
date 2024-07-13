@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'models/shop.dart';
+import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 import 'screens/intro_screen.dart';
 
@@ -12,14 +13,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "As Soft",
-      debugShowCheckedModeBanner: false,
-      home: const IntroScreen(),
-      routes: {
-        IntroScreen.routeName: (context) => const IntroScreen(),
-        HomeScreen.routeName: (context) => const HomeScreen(),
-      },
+    return ChangeNotifierProvider(
+      create: (context) => Shop(),
+      child: MaterialApp(
+        title: "As Soft",
+        debugShowCheckedModeBanner: false,
+        home: const IntroScreen(),
+        routes: {
+          IntroScreen.routeName: (context) => const IntroScreen(),
+          HomeScreen.routeName: (context) => const HomeScreen(),
+        },
+      ),
     );
   }
 }
